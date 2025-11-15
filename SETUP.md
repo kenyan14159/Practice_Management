@@ -44,11 +44,28 @@ yarn install
 
 ### 4. データベースのセットアップ
 
+#### 初回セットアップの場合
+
 1. Supabaseダッシュボードで「SQL Editor」を開く
 2. 「New Query」をクリック
 3. `supabase/schema.sql`の内容をコピー＆ペースト
 4. 「Run」ボタンをクリックしてSQLを実行
 5. エラーが出なければ成功
+
+#### 既にデータベースを作成済みの場合（RLSポリシーの修正）
+
+**重要**: 既にデータベースを作成している場合は、以下の手順でRLSポリシーを修正してください。
+
+1. Supabaseダッシュボードで「SQL Editor」を開く
+2. 「New Query」をクリック
+3. `supabase/fix_rls_policies.sql`の内容をコピー＆ペースト
+4. 「Run」ボタンをクリックしてSQLを実行
+5. 実行結果に以下のポリシーが表示されれば成功:
+   - `Users can view own data`
+   - `Users can insert own data` ← これが重要！
+   - `Users can update own data`
+
+#### データベースの確認
 
 データベースのテーブルが正しく作成されたか確認するには:
 - 左側のメニューから「Table Editor」を開く
@@ -109,6 +126,33 @@ npm run dev
 5. ログイン情報を入力してダッシュボードにアクセス
 
 ## トラブルシューティング
+
+### 問題: 新規登録時に "new row violates row-level security policy for table 'users'" エラーが発生
+
+**症状**: 新規登録フォームで情報を入力して「登録」ボタンを押すと、以下のエラーが表示される:
+```
+new row violates row-level security policy for table "users"
+```
+
+**原因**: usersテーブルのRLSポリシーにINSERT権限が設定されていない
+
+**解決策**: Supabaseで`supabase/fix_rls_policies.sql`を実行
+
+1. Supabaseダッシュボードで「SQL Editor」を開く
+2. 「New Query」をクリック
+3. 以下のSQLを実行:
+
+```sql
+-- 既存のポリシーを削除（存在する場合）
+DROP POLICY IF EXISTS "Users can insert own data" ON users;
+
+-- 新規登録を許可するポリシーを追加
+CREATE POLICY "Users can insert own data" ON users
+  FOR INSERT WITH CHECK (auth.uid() = id);
+```
+
+4. 「Run」をクリック
+5. 新規登録を再度試す
 
 ### 問題: npm installでエラーが発生する
 
