@@ -1,5 +1,14 @@
 -- Practice Management Database Schema
 
+-- チームテーブル（外部キー制約なしで先に作成）
+CREATE TABLE IF NOT EXISTS teams (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  coach_id UUID, -- 一旦外部キー制約なし
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- ユーザーテーブル
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -11,14 +20,10 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- チームテーブル
-CREATE TABLE IF NOT EXISTS teams (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name TEXT NOT NULL,
-  coach_id UUID REFERENCES users(id),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+-- teamsテーブルに外部キー制約を追加
+ALTER TABLE teams 
+  ADD CONSTRAINT fk_teams_coach_id 
+  FOREIGN KEY (coach_id) REFERENCES users(id);
 
 -- 練習記録テーブル
 CREATE TABLE IF NOT EXISTS trainings (
