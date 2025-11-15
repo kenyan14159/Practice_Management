@@ -72,7 +72,7 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-2">
+        <label htmlFor="name" className="block text-sm font-medium mb-2 text-gray-900">
           名前
         </label>
         <input
@@ -81,13 +81,13 @@ export default function RegisterForm() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
           placeholder="山田太郎"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
+        <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-900">
           メールアドレス
         </label>
         <input
@@ -96,13 +96,13 @@ export default function RegisterForm() {
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
           placeholder="example@university.ac.jp"
         />
       </div>
 
       <div>
-        <label htmlFor="role" className="block text-sm font-medium mb-2">
+        <label htmlFor="role" className="block text-sm font-medium mb-2 text-gray-900">
           ユーザー種別
         </label>
         <select
@@ -114,7 +114,7 @@ export default function RegisterForm() {
               role: e.target.value as 'athlete' | 'coach',
             })
           }
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
         >
           <option value="athlete">選手</option>
           <option value="coach">コーチ</option>
@@ -122,7 +122,7 @@ export default function RegisterForm() {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium mb-2">
+        <label htmlFor="password" className="block text-sm font-medium mb-2 text-gray-900">
           パスワード
         </label>
         <input
@@ -134,7 +134,7 @@ export default function RegisterForm() {
           }
           required
           minLength={8}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
           placeholder="••••••••"
         />
       </div>
@@ -142,7 +142,7 @@ export default function RegisterForm() {
       <div>
         <label
           htmlFor="confirmPassword"
-          className="block text-sm font-medium mb-2"
+          className="block text-sm font-medium mb-2 text-gray-900"
         >
           パスワード(確認)
         </label>
@@ -155,7 +155,7 @@ export default function RegisterForm() {
           }
           required
           minLength={8}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
           placeholder="••••••••"
         />
       </div>
